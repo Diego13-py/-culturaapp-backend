@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "CulturaApp API",
+    "description": "Colección de pruebas para la API REST de CulturaApp (préstamos de implementos culturales).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080" },
+    { "key": "implementoId", "value": "" },
+    { "key": "prestamoId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Implementos",
+      "item": [
+        {
+          "name": "1. Listar implementos",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/implementos"
+          }
+        },
+        {
+          "name": "2. Crear implemento",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Micrófono inalámbrico\",\n  \"tipo\": \"Audio\",\n  \"descripcion\": \"Micrófono para presentaciones del grupo de teatro\",\n  \"ubicacion\": \"Área de Cultura\",\n  \"condicion\": \"Bueno\"\n}"
+            },
+            "url": "{{base_url}}/api/implementos"
+          }
+        },
+        {
+          "name": "3. Obtener implemento por id",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/implementos/{{implementoId}}"
+          }
+        },
+        {
+          "name": "4. Buscar implementos por nombre",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/implementos?nombre=microfono"
+          }
+        },
+        {
+          "name": "5. Actualizar implemento",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Micrófono inalámbrico Shure\",\n  \"tipo\": \"Audio\",\n  \"descripcion\": \"Actualizado tras mantenimiento\"\n}"
+            },
+            "url": "{{base_url}}/api/implementos/{{implementoId}}"
+          }
+        },
+        {
+          "name": "6. Implemento inexistente (debe fallar 404)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/implementos/000000000000000000000000"
+          }
+        },
+        {
+          "name": "7. Eliminar implemento",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/implementos/{{implementoId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prestamos",
+      "item": [
+        {
+          "name": "1. Registrar prestamo",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"implementoId\": \"{{implementoId}}\",\n  \"responsable\": \"Juan Pérez\",\n  \"fechaLimite\": \"2026-10-20T18:00:00\"\n}"
+            },
+            "url": "{{base_url}}/api/prestamos"
+          }
+        },
+        {
+          "name": "2. Listar prestamos",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/prestamos"
+          }
+        },
+        {
+          "name": "3. Listar prestamos activos",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/prestamos?estado=activo"
+          }
+        },
+        {
+          "name": "4. Prestamo duplicado (debe fallar 409)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"implementoId\": \"{{implementoId}}\",\n  \"responsable\": \"Otro responsable\"\n}"
+            },
+            "url": "{{base_url}}/api/prestamos"
+          }
+        },
+        {
+          "name": "5. Registrar devolucion",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/api/prestamos/{{prestamoId}}/devolver"
+          }
+        },
+        {
+          "name": "6. Devolucion repetida (debe fallar 409)",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/api/prestamos/{{prestamoId}}/devolver"
+          }
+        },
+        {
+          "name": "7. Listar prestamos vencidos",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/prestamos?estado=vencido"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+com\culturaapp\backend\repository\ImplementoRepository.class
+com\culturaapp\backend\exception\GlobalExceptionHandler.class
+com\culturaapp\backend\model\Prestamo.class
+com\culturaapp\backend\exception\ApiException.class
+com\culturaapp\backend\service\ImplementoService.class
+com\culturaapp\backend\controller\ImplementoController.class
+com\culturaapp\backend\service\PrestamoService.class
+com\culturaapp\backend\CulturaappBackendApplication.class
+com\culturaapp\backend\model\Implemento.class
+com\culturaapp\backend\repository\PrestamoRepository.class
+com\culturaapp\backend\controller\PrestamoController.class
